@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 function Categories() {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
-    
+
     useEffect(() => {
         fetch('https://fakestoreapi.com/products/categories')
             .then(res => res.json())
@@ -30,6 +33,18 @@ function Categories() {
         localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
     };
 
+    const handleImageClick = (image) => {
+        MySwal.fire({
+            imageUrl: image,
+            imageAlt: 'Product Image',
+            showCloseButton: true,
+            showConfirmButton: false,
+            customClass: {
+                image: 'responsive-image'
+            }
+        });
+    };
+
     return (
         <div>
             {categories.map(category => (
@@ -51,6 +66,8 @@ function Categories() {
                                 height="140"
                                 image={product.image}
                                 alt={product.title}
+                                onClick={() => handleImageClick(product.image)}
+                                style={{ cursor: 'pointer' }}
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">

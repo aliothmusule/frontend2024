@@ -3,3 +3,6 @@
   max-width: 90%;
   height: auto;
 }
+body {
+  cursor: url('assets/estrella.png'), auto;
+}

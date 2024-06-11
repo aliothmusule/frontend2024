@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 function SavedProducts() {
     const [savedProducts, setSavedProducts] = useState([]);
+
     useEffect(() => {
         setSavedProducts(JSON.parse(localStorage.getItem('savedProducts')) || []);
     }, []);
-    
+
     const handleRemove = (product) => {
         let updatedSavedProducts = savedProducts.filter(p => p.id !== product.id);
         setSavedProducts(updatedSavedProducts);
         localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));
         Swal.fire('Eliminado', 'Producto eliminado del carrito', 'info');
     };
-    
+
+    const handleImageClick = (image) => {
+        MySwal.fire({
+            imageUrl: image,
+            imageAlt: 'Product Image',
+            showCloseButton: true,
+            showConfirmButton: false,
+            customClass: {
+                image: 'responsive-image'
+            }
+        });
+    };
+
     return (
         <Grid container spacing={3}>
             {savedProducts.map(product => (
@@ -25,6 +41,8 @@ function SavedProducts() {
                             height="140"
                             image={product.image}
                             alt={product.title}
+                            onClick={() => handleImageClick(product.image)}
+                            style={{ cursor: 'pointer' }}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
@@ -52,5 +70,3 @@ function SavedProducts() {
 }
 
 export default SavedProducts;
-
-    
