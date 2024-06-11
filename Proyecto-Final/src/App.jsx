@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Typography, Button, Container } from '@mui/material';
 import ShopIcon from '@mui/icons-material/Shop';
 import AllProducts from './components/AllProducts';
@@ -25,12 +25,12 @@ function App() {
                 </Toolbar>
             </AppBar>
             <Container style={{ marginTop: '2rem' }}>
-                <Switch>
-                    <Route path="/all-products" component={AllProducts} />
-                    <Route path="/search-product" component={SearchProduct} />
-                    <Route path="/categories" component={Categories} />
-                    <Route path="/saved-products" component={SavedProducts} />
-                </Switch>
+                <Routes>
+                    <Route path="/all-products" element={<AllProducts />} />
+                    <Route path="/search-product" element={<SearchProduct />} />
+                    <Route path="/categories" element={<Categories />} />
+                    <Route path="/saved-products" element={<SavedProducts />} />
+                </Routes>
             </Container>
         </Router>
     );
