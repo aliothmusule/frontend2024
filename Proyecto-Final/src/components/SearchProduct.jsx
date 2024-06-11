@@ -17,10 +17,10 @@ function SearchProduct() {
         let savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
         if (savedProducts.some(p => p.id === product.id)) {
             savedProducts = savedProducts.filter(p => p.id !== product.id);
-            Swal.fire('Eliminado', 'Producto eliminado de guardados', 'info');
+            Swal.fire('Eliminado', 'Producto eliminado del carrito', 'info');
         } else {
             savedProducts.push(product);
-            Swal.fire('Guardado', 'Producto guardado con éxito', 'success');
+            Swal.fire('Guardado', 'Producto agregado al carrito con éxito', 'success');
         }
         localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
     };
@@ -57,7 +57,7 @@ function SearchProduct() {
                             color="primary" 
                             onClick={handleSave}
                         >
-                            {JSON.parse(localStorage.getItem('savedProducts'))?.some(p => p.id === product.id) ? 'Eliminar' : 'Guardar'}
+                            {JSON.parse(localStorage.getItem('savedProducts'))?.some(p => p.id === product.id) ? 'Eliminar' : 'Agregar'}
                         </Button>
                     </CardContent>
                 </Card>

@@ -12,7 +12,7 @@ function SavedProducts() {
         let updatedSavedProducts = savedProducts.filter(p => p.id !== product.id);
         setSavedProducts(updatedSavedProducts);
         localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));
-        Swal.fire('Eliminado', 'Producto eliminado de guardados', 'info');
+        Swal.fire('Eliminado', 'Producto eliminado del carrito', 'info');
     };
     
     return (

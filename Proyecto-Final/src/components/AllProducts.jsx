@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 function AllProducts() {
     const [products, setProducts] = useState([]);
@@ -23,20 +26,37 @@ function AllProducts() {
         localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
     };
 
+    const handleImageClick = (image) => {
+        MySwal.fire({
+            imageUrl: image,
+            imageAlt: 'Product Image',
+            showCloseButton: true,
+            showConfirmButton: false,
+            customClass: {
+                image: 'responsive-image'
+            }
+        });
+    };
+
     return (
         <Grid container spacing={3}>
             {products.map(product => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                    <Card>
+                    <Card style={{ border: '1px solid #ddd' }}>
                         <CardMedia
                             component="img"
                             height="140"
                             image={product.image}
                             alt={product.title}
+                            onClick={() => handleImageClick(product.image)}
+                            style={{ cursor: 'pointer' }}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
                                 {product.title}
+                            </Typography>
+                            <Typography gutterBottom variant="h8" component="div">
+                                id: {product.id}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
                                 {product.description}
